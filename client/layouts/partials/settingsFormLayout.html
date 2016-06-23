@@ -1,0 +1,29 @@
+<template name="SettingsFormLayout">
+	<div id="form">
+		<div class="form-group">
+			<label>Public Active</label>
+			<select id="publicActive">
+				{{#each publicActiveOptions}}
+					<option value="{{value}}" {{selected}}>{{label}}</option>
+				{{/each}}
+			</select>
+		</div>
+		<label>Modify Registration Number Pool (Inclusive):</label>
+		<div class="form-group">
+			<form id="regPoolMod">
+				<label>Start</label>
+				<input type="text" id="regPoolModStart" size=4 value="">
+				<label>End</label>
+				<input type="text" id="regPoolModEnd" size=4 value="">
+				<input class="regPoolModbutton" name="addToPool" type="button" value="Add">
+				<input class="regPoolModbutton" name="removeFromPool" type="button" value="Remove">
+			</form>
+		</div>
+		<div id="pool-list">
+		<h4>Total in Pool: {{regNumPoolLength}}</h4>
+		{{#each regNumPool}}
+			<li>{{start}} - {{end}}</li>
+		{{/each}}
+		</div>
+	</div>
+</template>

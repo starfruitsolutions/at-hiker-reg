@@ -1,0 +1,17 @@
+<template name="UserHomeLayout">
+	<main>
+	{{#if Template.subscriptionsReady}}
+		{{#if registrationOpen}}
+			{{#if connected}}
+			<div class="form-group">
+				<a href="/registration"><button class="btn btn-primary"><i class="fa fa-play"></i>Begin Hiker Registration</button></a>
+			</div>
+			{{else}}
+			<h1>Server Connection Lost</h1>
+			{{/if}}
+		{{else}}
+			<h1>Registrations are full</h1>
+		{{/if}}
+	{{/if}}
+	</main>
+</template>

@@ -1,0 +1,26 @@
+<template name="MainLayout">
+	<head>
+	    <title>Baxter State Park- AT Hiker Registration</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.5, user-scalable=yes">
+	    
+	    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'>
+	
+	     <link rel="stylesheet" href="/css/mainLayout.css">   
+	</head>
+	
+	<div class="main_container">
+	  <div class="sub_container">
+	    <div class="top_container">	   
+	    	<div class="content">
+		    	 <div class="logo" style="width:100%; text-align:center">
+						<img src="/logo.png" width="200" height="200">
+						<h3>AT Hiker Registration</h3>
+				</div>	
+			    <div class="middle_container">			   
+				{{> Template.dynamic template=main}}
+		   		</div>
+			</div>
+	    </div>
+	  </div>
+	</div>
+</template>

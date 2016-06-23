@@ -1,0 +1,28 @@
+<template name="AdminHomeLayout">
+	<head>
+	    <title>Admin- AT Hiker Registration</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+	    
+	    
+	    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'>
+	
+	     <link rel="stylesheet" href="/css/adminHomeLayout.css">   
+	</head>
+	<main>
+		<div class="main_container">
+			<div class="admin_container">
+				<div class="login>">{{> loginButtons}}</div>		
+				{{#if currentUser}}
+					<div id="settings" class="row col-md-4">
+						<h1>Settings</h1>
+						{{> SettingsFormLayout}}
+					</div>
+					<div id="registration-table" class="row col-md-8">
+						{{> RegistrationTableLayout}}
+					</div>			
+				{{/if}}
+				<div style="clear: both"></div>
+			</div>
+		</div>
+	</main>
+</template>

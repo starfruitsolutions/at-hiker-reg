@@ -1,0 +1,10 @@
+<template name="RegistrationTableLayout">
+	<bottom>
+		{{#if Template.subscriptionsReady}}
+			<h1>Active Registrations</h1>
+			<div id="registration-list">
+				{{> reactiveTable collection=hikers class="table table-bordered table-striped table-hover" fields=fields}}
+			</div>
+		{{/if}}
+	</bottom>
+</template>

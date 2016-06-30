@@ -17,15 +17,19 @@ Template.UserHomeLayout.helpers({
 			return true;
 		}
 	}
-});
+}); 
 
 AutoForm.hooks({
   insertHikerForm: {
 	  onSubmit: function(insertDoc, updateDoc, currentDoc){
+		  var self= this;
 		  Meteor.call('insertHiker', insertDoc, function(error, result){
-			  if(error) alert(error.reason);
-		  });
-		  this.done();
+			  if(error){
+				  alert(error.reason);
+			  }else{
+				  self.done();
+			  }			  
+		  });		  
 		  return false;
 	  },
 	  onSuccess: function(formType, result) {

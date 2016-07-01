@@ -25,6 +25,7 @@ Template.AdminHomeLayout.helpers({
 	}
 });
 
+//old table
 Template.RegistrationTableLayout.helpers({	
 	hikers: function () {
         return Hikers;

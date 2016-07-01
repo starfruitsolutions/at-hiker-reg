@@ -11,7 +11,7 @@ Meteor.startup(() => {
 
 import { Accounts } from 'meteor/accounts-base';
 Accounts.config({
-	forbidClientAccountCreation : true,
+	forbidClientAccountCreation : false,
 });
 
 Hikers.before.insert(function (userId, doc) {

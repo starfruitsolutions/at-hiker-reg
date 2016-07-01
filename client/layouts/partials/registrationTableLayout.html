@@ -3,7 +3,8 @@
 		{{#if Template.subscriptionsReady}}
 			<h1>Active Registrations</h1>
 			<div id="registration-list">
-				{{> reactiveTable collection=hikers class="table table-bordered table-striped table-hover" fields=fields}}
+				{{> tabular table=TabularTables.Hikers class="table table-striped table-bordered table-condensed"}}
+<!-- 				{{> reactiveTable collection=hikers class="table table-bordered table-striped table-hover" fields=fields}} -->
 			</div>
 		{{/if}}
 	</bottom>

@@ -2,10 +2,10 @@
 	<head>
 	    <title>Admin- AT Hiker Registration</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-	    
-	    
+	    	    
 	    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'>
-	
+		
+		
 	     <link rel="stylesheet" href="/css/adminHomeLayout.css">   
 	</head>
 	<main>
@@ -18,6 +18,9 @@
 						{{> SettingsFormLayout}}
 					</div>
 					<div id="registration-table" class="row col-md-8">
+					<button id="export" onClick ="$('#DataTables_Table_0').tableExport({tableName:'Hiker Registrations', type:'pdf', pdfFontSize:'7', pdfLeftMargin:20, ignoreColumn: [5,6], htmlContent:'false', escape:'false'});">Print</button>
+					Minimum Registration: <input type="text" id="min" name="min"> 
+					Maximum Registration:<input type="text" id="max" name="max">
 						{{> RegistrationTableLayout}}
 					</div>			
 				{{/if}}

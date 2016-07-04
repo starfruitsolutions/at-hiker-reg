@@ -1,4 +1,5 @@
 <template name="SettingsFormLayout">
+{{#if Template.subscriptionsReady}}
 	<div id="form">
 		<div class="form-group">
 			<label>Public Active</label>
@@ -7,6 +8,7 @@
 					<option value="{{value}}" {{selected}}>{{label}}</option>
 				{{/each}}
 			</select>
+			
 		</div>
 		<label>Modify Registration Number Pool (Inclusive):</label>
 		<div class="form-group">
@@ -26,4 +28,5 @@
 		{{/each}}
 		</div>
 	</div>
+{{/if}}
 </template>

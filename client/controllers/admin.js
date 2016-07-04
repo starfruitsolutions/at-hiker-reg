@@ -4,11 +4,6 @@ Accounts.ui.config({
 });
 
 Template.AdminHomeLayout.onCreated(function () {
-	var self = this;
-	self.autorun(function(){
-		self.subscribe('settings');
-		self.subscribe('hikers');
-	});
 	//load the export stuff
 	$.getScript('js/tableExport.js', function(){
         // script should be loaded and do something with it. 
@@ -30,97 +25,29 @@ Template.AdminHomeLayout.onCreated(function () {
         // script should be loaded and do something with it. 
 
     });
-	Session.set('min','0')
 	
 });
 
 Template.SettingsFormLayout.onCreated(function () {
-	var self = this;
-	self.autorun(function(){
-		self.subscribe('settings');
-		self.subscribe('hikers');
-	});
+	this.subscribe('settings');
 });
-
-Template.AdminHomeLayout.helpers({
-	hikers: ()=> {
-		return Hikers.find();
-	}
-});
-
-//datatable
-dataTableData = function () {
-	if (Session.get('min') && Session.get('max')){ 
-		//filter between 2 numbers
-		var min = Session.get( "min" );
-		var max = Session.get( "max" );
-		console.log('session set');
-		var filter ={ 
-				regNum: { $gte: min, $lte: max }
-		}
-		return Hikers.find(filter).fetch();
-	}
-	else{
-		return Hikers.find().fetch();
-	}
-};
-
-Template.RegistrationTableLayout.helpers({
-	reactiveDataFunction: function () {
-        return dataTableData;
-    },
-    optionsObject: {
-    	columns: [
-    	          { data: 'first_name', title: 'First Name' },
-    	          { data: 'last_name', title: 'Last Name' },
-    	          { data: 'trail_name', title: 'Trail Name' },    	          
-    	          { data: 'regNum', title: 'Registration Number' },
-    	          { data: 'date', title: 'Estimated Arrival' },
-    	          { data: 'timestamp', title: 'Timestamp' },
-    	          { data: '_id', title: 'Delete', render: deleteButton }
-    	        ],
-    	dom: 'lftp', 
-    	// ... see jquery.dataTables docs for more
-    }
-});
-
-function deleteButton(cellData, renderType, currentRow) {
-    // You can return html strings, change sort order etc. here
-    // Again, see jquery.dataTables docs
-	return new Spacebars.SafeString('<button _id='+cellData+' type="button" class="deletebtn">Delete</button>');
-}
-////old table
-//Template.RegistrationTableLayout.helpers({	
-//	hikers: function () {
-//        return Hikers;
-//    },
-//	fields: ()=> {
-//		return [
-//	           { key: 'first_name', label: 'First Name' },
-//	           { key: 'last_name', label: 'Last Name' },
-//	           { key: 'trail_name', label: 'Trail Name' },
-//	           { key: 'date', label: 'Date' },
-//	           { key: 'regNum', label: 'Registration Number' },
-//	           { key: 'timestamp', label: 'Timestamp' },
-//               { key: 'delete', label: '', fn: function () { return new Spacebars.SafeString('<button type="button" class="deletebtn">Delete</button>') } }
-//	       ]
-//	}
-//});
 
 Template.SettingsFormLayout.helpers({
 	publicActiveOptions: ()=> {
-			return [{
-			    value:"1",
-			    label:"Yes",
-			    selected: ((Settings.findOne({name: "PublicActive"}).value[0] === 1) ? 'selected' : '')
-			  },{
-			    value:"0",
-			    label:"No",
-			    selected:((Settings.findOne({name: "PublicActive"}).value[0] === 0) ? 'selected' : '')
-			  }];
+			var publicActive= Settings.findOne({'name': "PublicActive"});
+				return [{
+				    value:"1",
+				    label:"Yes",
+				    selected: ((publicActive.value[0] == 1) ? 'selected' : '')
+				  },{
+				    value:"0",
+				    label:"No",
+				    selected: ((publicActive.value[0] == 0) ? 'selected' : '')
+				  }];
 	    },
 	regNumPool: ()=> {
-			var pool = Settings.findOne({name: "RegNumPool"}).value.sort(function(a, b){return a-b});
+			var regNumPool = Settings.findOne({name: "RegNumPool"});
+			var pool = regNumPool.value.sort(function(a, b){return a-b});
 			
 			var ranges = [], rstart, rend;
 			
@@ -136,21 +63,17 @@ Template.SettingsFormLayout.helpers({
 			return ranges;
 		},
 	regNumPoolLength: ()=> {
-		return Settings.findOne({name: "RegNumPool"}).value.sort(function(a, b){return a-b}).length;
+		var regNumPool=Settings.findOne({name: "RegNumPool"});
+			return regNumPool.value.sort(function(a, b){return a-b}).length;
 	},
 });
 
-Template.AdminHomeLayout.events({
-	  'change #publicActive'(event) {
-		    // Prevent default browser form submit
-		    event.preventDefault();
-		    
+Template.SettingsFormLayout.events({
+	  'change #publicActive'(event) {		   
+		    var publicActiveId =Settings.findOne({name: "PublicActive"})._id;
+		    var value =[$('#publicActive').val()];
 		    // Update public active setting
-		    Settings.update(Settings.findOne({name: "PublicActive"})._id, {
-		    	$set: { 
-		    		value: [$('#publicActive').val()],
-		    	},
-		    });
+		    Settings.update(publicActiveId, {$set: { value: value},});
 	  },
 	  "submit #regPoolMod" (event) {
 		  event.preventDefault();
@@ -192,6 +115,54 @@ Template.AdminHomeLayout.events({
 	    		},
 	    	});*/
 	  },
+});
+Template.RegistrationTableLayout.onCreated(function () {
+	this.subscribe('hikers');
+});
+
+//get hiker data within registration range if set
+registrationTableData = function () {
+	if (Session.get('min') && Session.get('max')){ 
+		//filter between 2 numbers
+		var min = Session.get( "min" );
+		var max = Session.get( "max" );
+		console.log('session set');
+		var filter ={ 
+				regNum: { $gte: min, $lte: max }
+		}
+		return Hikers.find(filter).fetch();
+	}
+	else{
+		return Hikers.find().fetch();
+	}
+};
+
+Template.RegistrationTableLayout.helpers({
+	reactiveDataFunction: function () {
+        return registrationTableData;
+    },
+    optionsObject: {
+    	columns: [
+    	          { data: 'first_name', title: 'First Name' },
+    	          { data: 'last_name', title: 'Last Name' },
+    	          { data: 'trail_name', title: 'Trail Name' },    	          
+    	          { data: 'regNum', title: 'Registration Number' },
+    	          { data: 'date', title: 'Estimated Arrival' },
+    	          { data: 'timestamp', title: 'Timestamp' },
+    	          { data: '_id', title: 'Delete', render: deleteButton }
+    	        ],
+    	
+    	// ... see jquery.dataTables docs for more
+    }
+});
+
+function deleteButton(cellData, renderType, currentRow) {
+    // You can return html strings, change sort order etc. here
+    // Again, see jquery.dataTables docs
+	return new Spacebars.SafeString('<button _id='+cellData+' type="button" class="deletebtn">Delete</button>');
+}
+
+Template.RegistrationTableLayout.events({
 	  'change #min': function (event) {
 		  Session.set( "min", parseInt($('#min').val()));
 	  },
@@ -209,13 +180,7 @@ Template.AdminHomeLayout.events({
     			value: recycleRegNum,
     		},
     	});
-        /*var pool = Settings.findOne({name: "RegNumPool"}).value.sort(function(a, b){return a-b});
-        console.log("Supposed to be sorted: " + pool);
-    	Settings.update(poolId, {
-    		$set: {
-    			value: pool,
-    		},
-    	});*/
+       
     	Hikers.remove(objToDelete);
 	    
 	  }

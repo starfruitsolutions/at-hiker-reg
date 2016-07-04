@@ -1,5 +1,9 @@
 <template name="RegistrationTableLayout">
 	<bottom>	
+	{{#if Template.subscriptionsReady}}
+	<button id="export" onClick ="$('#DataTables_Table_0').tableExport({tableName:'Hiker Registrations', type:'pdf', pdfFontSize:'7', pdfLeftMargin:20, ignoreColumn: [5,6], htmlContent:'false', escape:'false'});">Print</button>
+	Minimum Registration: <input type="text" id="min" name="min"> 
+	Maximum Registration:<input type="text" id="max" name="max">
 		{{#if Template.subscriptionsReady}}
 			<h1>Active Registrations</h1>
 			<div id="registration-list">
@@ -8,5 +12,6 @@
 				{{> ReactiveDatatable tableData=reactiveDataFunction options=optionsObject }}
 			</div>
 		{{/if}}
+	{{/if}}
 	</bottom>
 </template>

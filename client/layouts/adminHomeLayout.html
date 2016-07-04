@@ -17,10 +17,7 @@
 						<h1>Settings</h1>
 						{{> SettingsFormLayout}}
 					</div>
-					<div id="registration-table" class="row col-md-8">
-					<button id="export" onClick ="$('#DataTables_Table_0').tableExport({tableName:'Hiker Registrations', type:'pdf', pdfFontSize:'7', pdfLeftMargin:20, ignoreColumn: [5,6], htmlContent:'false', escape:'false'});">Print</button>
-					Minimum Registration: <input type="text" id="min" name="min"> 
-					Maximum Registration:<input type="text" id="max" name="max">
+					<div id="registration-table" class="row col-md-8">	
 						{{> RegistrationTableLayout}}
 					</div>			
 				{{/if}}

@@ -1,16 +1,13 @@
-Template.UserHomeLayout.onCreated(function () {
-	var self = this;
-	self.autorun(function(){
-		self.subscribe('settings');
-	});
+Template.UserHomeLayout.onCreated(function () {	
+		this.subscribe('settings');
 });
 
 Template.UserHomeLayout.helpers({
-	connected: ()=> {
+	connected: function(){
 		return Meteor.status().connected;
 	},
-	registrationOpen: ()=> {
-		if(Settings.findOne({name: "RegNumPool"}).value.length == 0){
+	registrationOpen: function(){
+		if(Settings.findOne({'name': "PublicActive"}).value[0] == 0){
 			return false;
 		}
 		else{
@@ -41,6 +38,7 @@ AutoForm.hooks({
 Template.RegSuccessLayout.onCreated(function () {
 	var self = this;
 	self.buttonStateDisabled = new ReactiveVar(false);
+	//get registration number
 	Meteor.call("lastRegistration", function(error, result){
 		Session.set("lastRegNum", result);
 	});

@@ -30,7 +30,6 @@ Hikers.after.insert(function (userId, doc) {
 
 Meteor.methods({
 	insertHiker: function (insertDoc) {
-		console.log(insertDoc);
 		Hikers.insert(insertDoc, function(error, docInserted){
 			console.log(docInserted);
 		});

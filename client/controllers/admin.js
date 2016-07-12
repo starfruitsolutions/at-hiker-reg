@@ -117,8 +117,14 @@ Template.SettingsFormLayout.events({
 	  },
 });
 Template.RegistrationTableLayout.onCreated(function () {
-	this.subscribe('hikers');
+	this.subscribe('hikers');	
 });
+
+Template.dateRangePicker.rendered=function () {
+	$('.datetimepicker').each(function(){
+        $(this).datetimepicker(); 
+   });	
+}
 
 //get hiker data within registration range if set
 registrationTableData = function () {
@@ -128,7 +134,7 @@ registrationTableData = function () {
 		var max = Session.get( "max" );
 		console.log('session set');
 		var filter ={ 
-				regNum: { $gte: min, $lte: max }
+				timestamp: { $gte: min, $lte: max }
 		}
 		return Hikers.find(filter).fetch();
 	}
@@ -143,15 +149,15 @@ Template.RegistrationTableLayout.helpers({
     },
     optionsObject: {
     	columns: [
-    	          { data: 'first_name', title: 'First Name' },
-    	          { data: 'last_name', title: 'Last Name' },
-    	          { data: 'trail_name', title: 'Trail Name' },    	          
-    	          { data: 'regNum', title: 'Registration Number' },
-    	          { data: 'date', title: 'Estimated Arrival' },
-    	          { data: 'timestamp', title: 'Timestamp' },
+    	          { data: 'first_name', title: 'First Name <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
+    	          { data: 'last_name', title: 'Last Name <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
+    	          { data: 'trail_name', title: 'Trail Name <i class="fa fa-arrows-v" aria-hidden="true"></i>' },    	          
+    	          { data: 'regNum', title: 'Registration Number <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
+    	          { data: 'date', title: 'Estimated Arrival <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
+    	          { data: 'timestamp', title: 'Timestamp <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
     	          { data: '_id', title: 'Delete', render: deleteButton }
     	        ],
-    	
+    	tableClasses: 'table-striped table-bordered table-condensed',
     	// ... see jquery.dataTables docs for more
     }
 });
@@ -162,13 +168,13 @@ function deleteButton(cellData, renderType, currentRow) {
 	return new Spacebars.SafeString('<button _id='+cellData+' type="button" class="deletebtn">Delete</button>');
 }
 
+Template.dateRangePicker.events({
+	  'click #date-filter': function (event) {
+		  Session.set( "min", new Date($('#min').val()));
+		  Session.set( "max", new Date($('#max').val()));
+	  },
+});
 Template.RegistrationTableLayout.events({
-	  'change #min': function (event) {
-		  Session.set( "min", parseInt($('#min').val()));
-	  },
-	  'change #max': function (event) {
-		  Session.set( "max", parseInt($('#max').val()));
-	  },
 	  'click .deletebtn': function (event) {
 	    event.preventDefault();
 	    var objToDelete=$(event.currentTarget).attr("_id");	    	  	   

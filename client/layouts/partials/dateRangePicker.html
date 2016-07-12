@@ -1,0 +1,27 @@
+<template name="dateRangePicker">
+<div class="row">
+    <form>
+       <div class="form-group col-md-3">
+	        <label for="myInput">Minimum Date:</label>
+			<div class="input-group datetimepicker">
+		             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		             <input id="min" name="min" class="set-due-date form-control" type="text"/>
+		    </div>
+	    </div>
+	     <div class="form-group col-md-3">
+	        <label for="myInput">Maximum Date:</label>
+			<div class="input-group datetimepicker">
+		             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		             <input id="max" name="max" class="set-due-date form-control" type="text"/>
+		    </div>
+	    </div>
+	    <div class="form-group col-md-3">	    	
+	        <label for="myInput"></label>
+	    	<div class="input-group">
+		    	<button id="date-filter" type="button" class="btn btn-primary">Filter</button> 
+		   		<button id="export" type="button" class="btn btn-primary" onClick ="$('#DataTables_Table_0').tableExport({tableName:'Hiker Registrations', type:'pdf', pdfFontSize:'7', pdfLeftMargin:20, ignoreColumn: [5,6], htmlContent:'false', escape:'false'});">Print</button>
+			</div>
+	    </div>	    
+    </form>
+</div>
+</template>

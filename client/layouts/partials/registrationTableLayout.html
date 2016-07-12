@@ -1,15 +1,13 @@
 <template name="RegistrationTableLayout">
 	<bottom>	
-	{{#if Template.subscriptionsReady}}
-	<button id="export" onClick ="$('#DataTables_Table_0').tableExport({tableName:'Hiker Registrations', type:'pdf', pdfFontSize:'7', pdfLeftMargin:20, ignoreColumn: [5,6], htmlContent:'false', escape:'false'});">Print</button>
-	Minimum Registration: <input type="text" id="min" name="min"> 
-	Maximum Registration:<input type="text" id="max" name="max">
+	{{#if Template.subscriptionsReady}}	
+	{{> dateRangePicker}}
+	
 		{{#if Template.subscriptionsReady}}
 			<h1>Active Registrations</h1>
 			<div id="registration-list">
-<!-- 				{{> tabular table=TabularTables.Hikers class="table table-striped table-bordered table-condensed"}}
- --><!-- 				{{> reactiveTable collection=hikers class="table table-bordered table-striped table-hover" fields=fields}} -->
-				{{> ReactiveDatatable tableData=reactiveDataFunction options=optionsObject }}
+			{{> ReactiveDatatable tableData=reactiveDataFunction options=optionsObject }}
+			{{optionsObject.tableClasses}}
 			</div>
 		{{/if}}
 	{{/if}}

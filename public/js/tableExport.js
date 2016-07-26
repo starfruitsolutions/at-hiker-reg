@@ -300,7 +300,7 @@ THE SOFTWARE.*/
 							if ($(this).css('display') != 'none'){					
 								if(defaults.ignoreColumn.indexOf(index) == -1){																	
 									doc.text(colPosition,20, parseString($(this)));
-									colPosition = colPosition+25;	
+									colPosition = colPosition+30;	
 								}
 							}
 						});									
@@ -312,19 +312,19 @@ THE SOFTWARE.*/
 					$(el).find('tbody').find('tr').each(function(index,data) {
 						rowCalc = index+1;
 						
-					if (rowCalc % 26 == 0){
+					if (rowCalc % 50 == 0){
 						doc.addPage();
 						page++;
-						startRowPosition=startRowPosition+10;
+						startRowPosition=startRowPosition+5;
 					}
-					rowPosition=(startRowPosition + (rowCalc * 10)) - ((page -1) * 280);
+					rowPosition=(startRowPosition + (rowCalc * 5)) - ((page -1) * 280);
 						var colPosition=startColPosition;
 						$(this).filter(':visible').find('td').each(function(index,data) {
 							//reset the column							
 							if ($(this).css('display') != 'none'){	
 								if(defaults.ignoreColumn.indexOf(index) == -1){									
 									doc.text(colPosition,rowPosition, parseString($(this)));
-									colPosition = colPosition+25;
+									colPosition = colPosition+30;
 								}
 							}
 							
@@ -352,7 +352,7 @@ THE SOFTWARE.*/
 					
 					
 					
-					return content_data;
+					return content_data.substring(0, 11);;
 				}
 			
 			}

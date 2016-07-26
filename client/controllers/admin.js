@@ -152,8 +152,8 @@ Template.RegistrationTableLayout.helpers({
     	          { data: 'first_name', title: 'First Name <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
     	          { data: 'last_name', title: 'Last Name <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
     	          { data: 'trail_name', title: 'Trail Name <i class="fa fa-arrows-v" aria-hidden="true"></i>' },    	          
-    	          { data: 'regNum', title: 'Registration Number <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
-    	          { data: 'date', title: 'Estimated Arrival <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
+    	          { data: 'regNum', title: 'Reg Number <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
+    	          { data: 'date', title: 'Est Arrival <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
     	          { data: 'timestamp', title: 'Timestamp <i class="fa fa-arrows-v" aria-hidden="true"></i>' },
     	          { data: '_id', title: 'Delete', render: deleteButton }
     	        ],

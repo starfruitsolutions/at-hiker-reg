@@ -315,7 +315,7 @@ THE SOFTWARE.*/
 					if (rowCalc % 50 == 0){
 						doc.addPage();
 						page++;
-						startRowPosition=startRowPosition+5;
+						startRowPosition=startRowPosition+20;
 					}
 					rowPosition=(startRowPosition + (rowCalc * 5)) - ((page -1) * 280);
 						var colPosition=startColPosition;
